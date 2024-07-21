@@ -1,3 +1,6 @@
+"""Рабочее решение задачи на Яндекс Контесте: 116278138"""
+
+
 def get_min_transport_platforms(values: list[int], limit: int) -> int:
     platform_count = total_weight = left_pointer = 0
     values.sort()
