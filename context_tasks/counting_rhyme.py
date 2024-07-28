@@ -10,10 +10,11 @@ class Applicant:
 def counting_rhyme(applicants_value: int, tacts_value: int):
     applicants = [Applicant(x + 1) for x in range(applicants_value)]
 
-    while len(applicants) > 1:
-        tact = 1
+    tact = 1
 
-        for applicant in applicants:
+    while len(applicants) > 1:
+        applicants_temp = applicants.copy()
+        for applicant in applicants_temp:
             if applicant.checked is True:
                 applicants.append(applicant)
                 applicant.checked = False
@@ -23,6 +24,7 @@ def counting_rhyme(applicants_value: int, tacts_value: int):
             applicant.checked = True
             if tact == tacts_value:
                 applicants.pop(index)
+                tact = 1
                 break
             tact += 1
 
