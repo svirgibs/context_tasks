@@ -2,3 +2,5 @@
 venv
 check.py
 *.zip
+input.txt
+output.txt
