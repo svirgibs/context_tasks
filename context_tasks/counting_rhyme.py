@@ -37,6 +37,6 @@ if __name__ == '__main__':
         tacts = int(file_input.readline().rstrip())
 
     result = counting_rhyme(applicants, tacts)
-    print(result)
+
     with open('output.txt', 'w') as file_output:
         file_output.write(str(result))

@@ -2,5 +2,5 @@
 venv
 check.py
 *.zip
-input.txt
-output.txt
+context_tasks/input.txt
+context_tasks/output.txt
