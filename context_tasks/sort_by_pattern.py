@@ -31,6 +31,7 @@ def sort_by_pattern(
 
 
 if __name__ == '__main__':
+
     with open('input.txt') as file_input:
         amount_numbers = int(file_input.readline().rstrip())
         numbers = file_input.readline().rstrip().rsplit(' ')
@@ -41,7 +42,7 @@ if __name__ == '__main__':
     pattern_values = [int(x) for x in pattern_values]
 
     result = sort_by_pattern(numbers, pattern_values)
-
     result = [str(x) for x in result]
+
     with open('output.txt', 'w') as file_output:
         file_output.write(' '.join(result))
