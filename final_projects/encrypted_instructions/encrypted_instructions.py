@@ -1,37 +1,27 @@
-# Номер посылки -
+"""ID посылки - 116586096"""
 
-from string import digits, ascii_letters
+from string import digits
 
 
 def get_decoding_instructions(encrypted: str) -> str:
-    """Функция декодирует и возвращает инструкцию"""
-    result = str()
-    repeat = str()
-    repeat_in_bracket = str()
-    commands = str()
-    in_bracket = False
-    brackets = ['[', ']']
+    """Функция декодирует и возвращает строку с инструкцией."""
+    commands: list = []
+    repeat: str = str()
+    current_command: str = str()
 
     for char in encrypted:
-        if char in digits and not in_bracket:
+        if char in digits:
             repeat += char
-            continue
-        elif char in digits and in_bracket:
-            repeat_in_bracket += char
-        elif char in brackets:
-            if char == brackets[1]:
-                in_bracket = False
-                result += commands * int(repeat)
-                commands = str()
-                repeat = str()
-            else:
-                in_bracket = True
-        elif char in ascii_letters and in_bracket:
-            commands += char
-        elif char in ascii_letters and not in_bracket:
-            result += char
-
-    return result
+        elif char == '[':
+            commands.append((current_command, repeat))
+            current_command = str()
+            repeat = str()
+        elif char == ']':
+            last_command, last_repeat = commands.pop()
+            current_command = last_command + current_command * int(last_repeat)
+        else:
+            current_command += char
+    return current_command
 
 
 if __name__ == '__main__':
@@ -39,9 +29,6 @@ if __name__ == '__main__':
         encrypted_instructions = file_input.readline().rstrip()
 
     result = get_decoding_instructions(encrypted_instructions)
-
-    print(result)
-    # aaabcbc
 
     with open('output.txt', 'w') as file_output:
         file_output.write(str(result))
