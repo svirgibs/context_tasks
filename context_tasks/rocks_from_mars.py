@@ -1,45 +1,38 @@
-class Rocks:
-    def __init__(self, weight: int, free: bool = True):
-        self.weight = weight
-        self.free = free
-
-    def __repr__(self):
-        return repr(self.weight)
-
-
 def get_quantity_orders(
-        min_weight_list: list[int],
-        rocks_list: list[int]
+        orders_quantity: int,
+        orders: list[int],
+        rocks_quantity: int,
+        offers: list[int]
 ):
     count = 0
+    offers.sort()
+    orders.sort()
+    i = 0
+    j = 0
 
-    min_weight_list = sorted(min_weight_list, reverse=True)
-
-    rocks_list = sorted(rocks_list, reverse=True)
-    rocks_list = [Rocks(x) for x in rocks_list]
-
-    for min_weight in min_weight_list:
-        for rock in rocks_list:
-            if min_weight <= rock.weight and rock.free:
-                count += 1
-                rock.free = False
-                break
+    while i < orders_quantity and j < rocks_quantity:
+        if offers[j] >= orders[i]:
+            count += 1
+            i += 1
+        j += 1
     return count
 
 
 if __name__ == '__main__':
     with open('input.txt') as file_input:
         orders_quantity = int(file_input.readline().rstrip())
-        min_weight_list = file_input.readline().rstrip().rsplit()
+        orders = file_input.readline().rstrip().rsplit()
         rocks_quantity = int(file_input.readline().rstrip())
-        rocks_list = file_input.readline().rstrip().rsplit()
+        offers = file_input.readline().rstrip().rsplit()
 
-    min_weight_list = [int(x) for x in min_weight_list]
-    rocks_list = [int(x) for x in rocks_list]
+    orders = [int(x) for x in orders]
+    offers = [int(x) for x in offers]
 
     result = get_quantity_orders(
-        min_weight_list=min_weight_list,
-        rocks_list=rocks_list
+        orders_quantity=orders_quantity,
+        orders=orders,
+        rocks_quantity=rocks_quantity,
+        offers=offers
     )
 
     with open('output.txt', 'w') as file_output:
