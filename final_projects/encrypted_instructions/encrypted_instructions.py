@@ -1,4 +1,4 @@
-"""ID посылки - 116586096"""
+"""ID посылки - 116588291"""
 
 from string import digits
 
@@ -6,19 +6,19 @@ from string import digits
 def get_decoding_instructions(encrypted: str) -> str:
     """Функция декодирует и возвращает строку с инструкцией."""
     commands: list = []
-    repeat: str = str()
+    repeats: list = []
     current_command: str = str()
 
     for char in encrypted:
         if char in digits:
-            repeat += char
+            repeats.append(char)
         elif char == '[':
-            commands.append((current_command, repeat))
+            commands.append((current_command, repeats))
             current_command = str()
-            repeat = str()
+            repeats = []
         elif char == ']':
-            last_command, last_repeat = commands.pop()
-            current_command = last_command + current_command * int(last_repeat)
+            last_command, last_repeats = commands.pop()
+            current_command = last_command + current_command * int(''.join(last_repeats))
         else:
             current_command += char
     return current_command
